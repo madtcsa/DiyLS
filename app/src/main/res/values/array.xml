@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="menu_names">
+        <item>Home Page</item>
+        <item>Locker Setting</item>
+        <item>Initial Setting</item>
+        <item>About</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,83 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:match="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/imageview"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.kkxx.diyls.render.MissView
+        android:visibility="gone"
+        android:id="@+id/missview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.kkxx.diyls.utils.DigitalClock
+        android:layout_centerHorizontal="true"
+        android:id="@+id/clock"
+        android:layout_marginTop="60dp"
+        android:textSize="60sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/clock"
+        android:id="@+id/date"
+        android:text="4月29日 星期一"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.kkxx.diyls.utils.GestureLockView
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/date"
+        android:visibility="gone"
+        android:layout_marginTop="40dp"
+        android:id="@+id/gestureLockView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></com.kkxx.diyls.utils.GestureLockView>
+
+    <com.kkxx.diyls.utils.SliderLayout
+        android:id="@+id/sliderlayout"
+        android:layout_marginBottom="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <RelativeLayout
+            android:id="@+id/matchview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.kkxx.diyls.matchview.MatchTextView
+                android:id="@+id/mMatchTextView"
+                match:textSize="8sp"
+                match:text="slide to unlock"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+    </com.kkxx.diyls.utils.SliderLayout>
+
+
+
+    <SurfaceView
+        android:id="@+id/camera_preview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.kkxx.diyls.utils.faceutil.FaceMask
+        android:id="@+id/mask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></com.kkxx.diyls.utils.faceutil.FaceMask>
+
+
+
+</RelativeLayout>
