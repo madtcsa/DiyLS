@@ -31,8 +31,6 @@ import com.kkxx.diyls.utils.DrawerArrowDrawable;
 import java.io.File;
 
 public class HomeActivity extends BaseActivity {
-    public final static String DIR_NAME = "Mrlocker_img";
-    public final static String IMAGE_NAME = "night2.jpg";
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;

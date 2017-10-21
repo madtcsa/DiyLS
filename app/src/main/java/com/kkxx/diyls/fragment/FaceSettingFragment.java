@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.faceplusplus.api.FaceDetecter;
 import com.kkxx.diyls.BaseActivity;
-import com.kkxx.diyls.MrApplication;
+import com.kkxx.diyls.DiyLSApplication;
 import com.kkxx.diyls.R;
 import com.kkxx.diyls.utils.faceutil.BitmapUtil;
 import com.kkxx.diyls.utils.faceutil.FaceMask;
@@ -205,7 +205,7 @@ public class FaceSettingFragment extends BaseFragment
                     }
                     else {
                         isSaveed = true;
-                        BitmapUtil.onlySaveBitmap(MrApplication.facePath,
+                        BitmapUtil.onlySaveBitmap(DiyLSApplication.facePath,
                                 bitmap);//先保存
                         BaseActivity.localSharedPreferences.edit()
                                                             .putString(

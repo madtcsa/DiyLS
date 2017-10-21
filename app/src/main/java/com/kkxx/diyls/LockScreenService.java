@@ -181,8 +181,8 @@ import java.io.IOException;
                     BaseActivity.mUri);
         }
         if (TextUtils.isEmpty(path)) {
-            path = HomeActivity.getSDPath() + "/" + HomeActivity.DIR_NAME +
-                    "/" + HomeActivity.IMAGE_NAME;
+            path = HomeActivity.getSDPath() + "/" + DiyLSApplication.DIR_NAME +
+                    "/" + DiyLSApplication.IMAGE_NAME;
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -430,7 +430,7 @@ import java.io.IOException;
                                 "ysY5joJFm4lqDONwHle36_9YSGj03iAn", true, true);
                         try {
                             byte[] array1 = imageProcessing(
-                                    MrApplication.facePath);
+                                    DiyLSApplication.facePath);
                             if (array1 == null) {
                                 return;
                             }

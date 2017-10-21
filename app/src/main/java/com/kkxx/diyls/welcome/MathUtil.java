@@ -16,7 +16,6 @@
 
 package com.kkxx.diyls.welcome;
 
-import android.util.FloatMath;
 
 public class MathUtil {
     public static float constrain(float min, float max, float v) {
@@ -39,7 +38,7 @@ public class MathUtil {
 
 
     public static float dist(float x, float y) {
-        return FloatMath.sqrt(x * x + y * y);
+        return (float) Math.sqrt(x * x + y * y);
     }
 
 

@@ -60,16 +60,13 @@ public abstract class RenderController {
                     return;
                 }
 
-                mCallbacks.queueEventOnGlThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (mVisible) {
-                            mRenderer.setAndConsumeBitmapRegionLoader(
-                                    bitmapRegionLoader);
-                        }
-                        else {
-                            mQueuedBitmapRegionLoader = bitmapRegionLoader;
-                        }
+                mCallbacks.queueEventOnGlThread(() -> {
+                    if (mVisible) {
+                        mRenderer.setAndConsumeBitmapRegionLoader(
+                                bitmapRegionLoader);
+                    }
+                    else {
+                        mQueuedBitmapRegionLoader = bitmapRegionLoader;
                     }
                 });
             }

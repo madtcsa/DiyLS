@@ -21,7 +21,9 @@ public class UriUtil {
      */
     @TargetApi(19)
     public static String getImageAbsolutePath(Context context, Uri imageUri) {
-        if (context == null || imageUri == null) return null;
+        if (context == null || imageUri == null) {
+            return null;
+        }
         if (android.os.Build.VERSION.SDK_INT >=
                 android.os.Build.VERSION_CODES.KITKAT &&
                 DocumentsContract.isDocumentUri(context, imageUri)) {

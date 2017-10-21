@@ -81,7 +81,7 @@ public class DemoRenderController extends RenderController {
 
 
         public MyHandler(DemoRenderController activity) {
-            mActivity = new WeakReference<DemoRenderController>(activity);
+            mActivity = new WeakReference<>(activity);
         }
 
 

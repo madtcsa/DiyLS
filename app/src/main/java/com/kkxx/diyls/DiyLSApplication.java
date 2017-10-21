@@ -18,14 +18,14 @@ import java.io.OutputStream;
  * @author Administrator
  * @date 2015/4/30
  */
-public class MrApplication extends Application {
+public class DiyLSApplication extends Application {
     public static final String PREFS = "locker_pref";
-    public static final String DIR_NAME = "Mrlocker_img";
+    public static final String DIR_NAME = "diyls_img";
     public static final String FACEIMG_NAME = "Face_img.jpeg";
-    private final String IMAGE_NAME = "night2.jpg";
-    public static String facePath = MrApplication.getSDPath() + "/" +
-            MrApplication.DIR_NAME + "/" +
-            MrApplication.FACEIMG_NAME;
+    public static final String IMAGE_NAME = "night2.jpg";
+    public static String facePath = DiyLSApplication.getSDPath() + "/" +
+            DiyLSApplication.DIR_NAME + "/" +
+            DiyLSApplication.FACEIMG_NAME;
 
 
     @Override
@@ -43,9 +43,7 @@ public class MrApplication extends Application {
 
     private void initImage() {
         try {
-            if (!TextUtils.isEmpty(
-                    BaseActivity.localSharedPreferences.getString(
-                            BaseActivity.PREFS_IMAGE_PATH, ""))) {//用户设置过
+            if (!TextUtils.isEmpty(BaseActivity.localSharedPreferences.getString(BaseActivity.PREFS_IMAGE_PATH,""))) {
                 BaseActivity.mUri = Uri.fromFile(new File(
                         BaseActivity.localSharedPreferences.getString(
                                 BaseActivity.PREFS_IMAGE_PATH, "")));
@@ -70,7 +68,6 @@ public class MrApplication extends Application {
         }
     }
 
-
     private void assetsDataToSD(String fileName) throws IOException {
         InputStream myInput;
         OutputStream myOutput = new FileOutputStream(fileName);
@@ -90,10 +87,9 @@ public class MrApplication extends Application {
     public static String getSDPath() {
         File sdDir = null;
         boolean sdCardExist = Environment.getExternalStorageState()
-                .equals(android.os.Environment.MEDIA_MOUNTED);   //判断sd卡是否存在
-        if (sdCardExist)      //如果SD卡存在，则获取跟目录
-        {
-            sdDir = Environment.getExternalStorageDirectory();//获取跟目录
+                .equals(android.os.Environment.MEDIA_MOUNTED);
+        if (sdCardExist) {
+            sdDir = Environment.getExternalStorageDirectory();
         }
         return sdDir.toString();
     }
