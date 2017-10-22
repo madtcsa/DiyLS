@@ -42,13 +42,11 @@ import java.text.ParseException;
     private static final int FILL_START = 1200;
     private static final int FILL_TIME = 2000;
     private static final int MARKER_LENGTH_DIP = 16;
-    private static final int TRACE_RESIDUE_COLOR = Color.argb(50, 255, 255,
-            255);//实线的颜色
+    private static final int TRACE_RESIDUE_COLOR = Color.argb(50, 255, 255, 255);//实线的颜色
     private static final int TRACE_COLOR = Color.WHITE;//白块的颜色
     private static final PointF VIEWPORT = new PointF(1000, 300);
 
-    private static final Interpolator INTERPOLATOR
-            = new DecelerateInterpolator();
+    private static final Interpolator INTERPOLATOR = new DecelerateInterpolator();
 
     private Paint mFillPaint;
     private GlyphData[] mGlyphData;

@@ -6,7 +6,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.text.TextUtils;
 
-import com.squareup.leakcanary.LeakCanary;
+//import com.squareup.leakcanary.LeakCanary;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,7 +31,7 @@ public class DiyLSApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        LeakCanary.install(this);
+//        LeakCanary.install(this);
         BaseActivity.localSharedPreferences = getSharedPreferences(PREFS, 0);
         initImage();
         if (BaseActivity.localSharedPreferences.getBoolean(
