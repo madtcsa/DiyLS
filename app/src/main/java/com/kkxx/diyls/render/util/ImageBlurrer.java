@@ -28,12 +28,10 @@ import android.renderscript.ScriptIntrinsicColorMatrix;
 public class ImageBlurrer {
     public static final int MAX_SUPPORTED_BLUR_PIXELS = 25;
     private RenderScript mRS;
-
     private ScriptIntrinsicBlur mSIBlur;
     private ScriptIntrinsicColorMatrix mSIGrey;
     private Allocation mTmp1;
     private Allocation mTmp2;
-
 
     public ImageBlurrer(Context context) {
         mRS = RenderScript.create(context);
@@ -41,13 +39,11 @@ public class ImageBlurrer {
         mSIGrey = ScriptIntrinsicColorMatrix.create(mRS);
     }
 
-
     public Bitmap blurBitmap(Bitmap src, float radius, float desaturateAmount) {
         Bitmap dest = Bitmap.createBitmap(src);
         if ((int) radius == 0) {
             return dest;
         }
-
         if (mTmp1 != null) {
             mTmp1.destroy();
         }
@@ -64,7 +60,7 @@ public class ImageBlurrer {
 
         if (desaturateAmount > 0) {
             desaturateAmount = MathUtil.constrain(0, 1, desaturateAmount);
-            Matrix3f m = new Matrix3f(new float[] {
+            Matrix3f m = new Matrix3f(new float[]{
                     MathUtil.interpolate(1, 0.299f, desaturateAmount),
                     MathUtil.interpolate(0, 0.299f, desaturateAmount),
                     MathUtil.interpolate(0, 0.299f, desaturateAmount),
@@ -75,17 +71,15 @@ public class ImageBlurrer {
 
                     MathUtil.interpolate(0, 0.114f, desaturateAmount),
                     MathUtil.interpolate(0, 0.114f, desaturateAmount),
-                    MathUtil.interpolate(1, 0.114f, desaturateAmount), });
+                    MathUtil.interpolate(1, 0.114f, desaturateAmount),});
             mSIGrey.setColorMatrix(m);
             mSIGrey.forEach(mTmp2, mTmp1);
             mTmp1.copyTo(dest);
-        }
-        else {
+        } else {
             mTmp2.copyTo(dest);
         }
         return dest;
     }
-
 
     public void destroy() {
         mSIBlur.destroy();

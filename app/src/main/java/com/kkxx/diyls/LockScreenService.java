@@ -6,11 +6,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.IBinder;
 import android.text.TextUtils;
 import android.view.View;
@@ -38,10 +35,15 @@ public class LockScreenService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
-        intentFilter.addAction(Intent.ACTION_SCREEN_ON);
-        registerReceiver(screenReceiver, intentFilter);
+        try {
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
+            intentFilter.addAction(Intent.ACTION_SCREEN_ON);
+            registerReceiver(screenReceiver, intentFilter);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        startService(new Intent(this, DiyLSJobService.class));
     }
 
     @Override
@@ -67,7 +69,8 @@ public class LockScreenService extends Service {
                         .KEYGUARD_SERVICE);
                 KeyguardManager.KeyguardLock keyguardLock = keyguardManager.newKeyguardLock("");
                 keyguardLock.disableKeyguard();
-                if (BaseActivity.localSharedPreferences.getBoolean(BaseActivity.PREFS_IS_OPEN, true)) {
+                if (BaseActivity.localSharedPreferences.getBoolean(BaseActivity.PREFS_IS_OPEN,
+                        true)) {
                     if (!isShow) {
                         createFloatView();
                     }
@@ -125,7 +128,8 @@ public class LockScreenService extends Service {
         SliderLayout mSliderLayout = (SliderLayout) mFloatView.findViewById(R.id.sliderlayout);
         //滑动解锁
         mSliderLayout.setOnUnlockListener(() -> {
-            if (BaseActivity.localSharedPreferences.getBoolean(BaseActivity.PREFS_SETTING_SHAKE, false)) {
+            if (BaseActivity.localSharedPreferences.getBoolean(BaseActivity.PREFS_SETTING_SHAKE,
+                    false)) {
                 VibratorUtil.Vibrate(getApplicationContext(), 50);
             }
             windowManager.removeView(mFloatView);

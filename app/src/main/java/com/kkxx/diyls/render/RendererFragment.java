@@ -44,7 +44,6 @@ public class RendererFragment extends Fragment
     private static final String ARG_DEMO_MODE = "demo_mode";
     private static final String ARG_DEMO_FOCUS = "demo_focus";
     private static final String ARG_DEMO_PICTURE = "demo_picture";
-
     private MuzeiView mView;
     private ImageView mSimpleDemoModeImageView;
     private boolean mDemoMode;
@@ -62,10 +61,8 @@ public class RendererFragment extends Fragment
         return fragment;
     }
 
-
     public RendererFragment() {
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,12 +76,11 @@ public class RendererFragment extends Fragment
 
     @Override
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+            savedInstanceState) {
         boolean simpleDemoMode = false;
-        if (mDemoMode && Build.VERSION.SDK_INT >=
-                Build.VERSION_CODES.KITKAT) {//判断系统版本是否小于4.4、或是RAM过小，则使用simpleMode
-            ActivityManager activityManager
-                    = (ActivityManager) getActivity().getSystemService(
+        if (mDemoMode && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            ActivityManager activityManager = (ActivityManager) getActivity().getSystemService(
                     Context.ACTIVITY_SERVICE);
             if (activityManager.isLowRamDevice()) {
                 simpleDemoMode = true;
@@ -96,31 +92,26 @@ public class RendererFragment extends Fragment
             int targetWidth = dm.widthPixels;
             int targetHeight = dm.heightPixels;
             if (!mDemoFocus) {
-                targetHeight = MathUtil.roundMult4(
-                        ImageBlurrer.MAX_SUPPORTED_BLUR_PIXELS * 10000 /
-                                BlurRenderer.DEFAULT_BLUR);
-                targetWidth = MathUtil.roundMult4(
-                        (int) (dm.widthPixels * 1f / dm.heightPixels *
-                                targetHeight));
+                targetHeight = MathUtil.roundMult4(ImageBlurrer.MAX_SUPPORTED_BLUR_PIXELS * 10000 /
+                        BlurRenderer.DEFAULT_BLUR);
+                targetWidth = MathUtil.roundMult4((int) (dm.widthPixels * 1f / dm.heightPixels *
+                        targetHeight));
             }
 
             mSimpleDemoModeImageView = new ImageView(container.getContext());
-            mSimpleDemoModeImageView.setScaleType(
-                    ImageView.ScaleType.CENTER_CROP);
-            Picasso.with(getActivity())
-                   .load(mPictureName)
-                   .resize(targetWidth, targetHeight)
-                   .centerCrop()
-                   .into(mSimpleDemoModeLoadedTarget);
+            mSimpleDemoModeImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            Picasso.with(getActivity()).
+                    load(mPictureName).
+                    resize(targetWidth, targetHeight)
+                    .centerCrop()
+                    .into(mSimpleDemoModeLoadedTarget);
             return mSimpleDemoModeImageView;
-        }
-        else {
+        } else {
             mView = new MuzeiView(getActivity(), mPictureName);
             mView.setPreserveEGLContextOnPause(true);
             return mView;
         }
     }
-
 
     private Target mSimpleDemoModeLoadedTarget = new Target() {
         @Override
@@ -128,31 +119,24 @@ public class RendererFragment extends Fragment
             if (!mDemoFocus) {
                 // Blur
                 ImageBlurrer blurrer = new ImageBlurrer(getActivity());
-                Bitmap blurred = blurrer.blurBitmap(bitmap,
-                        ImageBlurrer.MAX_SUPPORTED_BLUR_PIXELS, 0);
-
+                Bitmap blurred = blurrer.blurBitmap(bitmap, ImageBlurrer
+                        .MAX_SUPPORTED_BLUR_PIXELS, 0);
                 // Dim
                 Canvas c = new Canvas(blurred);
-                c.drawColor(Color.argb(255 - BlurRenderer.DEFAULT_MAX_DIM, 0, 0,
-                        0));
-
+                c.drawColor(Color.argb(255 - BlurRenderer.DEFAULT_MAX_DIM, 0, 0, 0));
                 bitmap = blurred;
             }
-
             mSimpleDemoModeImageView.setImageBitmap(bitmap);
         }
-
 
         @Override
         public void onBitmapFailed(Drawable drawable) {
         }
 
-
         @Override
         public void onPrepareLoad(Drawable drawable) {
         }
     };
-
 
     @Override
     public void onHiddenChanged(boolean hidden) {
@@ -160,12 +144,8 @@ public class RendererFragment extends Fragment
         if (mView == null) {
             return;
         }
-
-        if (mView != null) {
-            mView.mRenderController.setVisible(!hidden);
-        }
+        mView.mRenderController.setVisible(!hidden);
     }
-
 
     @Override
     public void onDestroyView() {
@@ -175,17 +155,14 @@ public class RendererFragment extends Fragment
         mView = null;
     }
 
-
     @Override
     public void onPause() {
         super.onPause();
         if (mView == null) {
             return;
         }
-
         mView.onPause();
     }
-
 
     @Override
     public void onResume() {
@@ -193,10 +170,8 @@ public class RendererFragment extends Fragment
         if (mView == null) {
             return;
         }
-
         mView.onResume();
     }
-
 
     @Override
     public void queueEventOnGlThread(Runnable runnable) {
@@ -207,7 +182,6 @@ public class RendererFragment extends Fragment
         mView.queueEvent(runnable);
     }
 
-
     @Override
     public void requestRender() {
         if (mView == null) {
@@ -217,11 +191,9 @@ public class RendererFragment extends Fragment
         mView.requestRender();
     }
 
-
     private class MuzeiView extends GLTextureView {
         private BlurRenderer mRenderer;
         private RenderController mRenderController;
-
 
         public MuzeiView(Context context, String mPictureName) {
             super(context);
@@ -236,7 +208,6 @@ public class RendererFragment extends Fragment
             mRenderController.setVisible(true);
         }
 
-
         @Override
         protected void onSizeChanged(int w, int h, int oldw, int oldh) {
             super.onSizeChanged(w, h, oldw, oldh);
@@ -244,17 +215,11 @@ public class RendererFragment extends Fragment
             mRenderController.reloadCurrentArtwork(true);
         }
 
-
         @Override
         protected void onDetachedFromWindow() {
             super.onDetachedFromWindow();
             mRenderController.destroy();
-            queueEventOnGlThread(new Runnable() {
-                @Override
-                public void run() {
-                    mRenderer.destroy();
-                }
-            });
+            queueEventOnGlThread(() -> mRenderer.destroy());
         }
     }
 }
