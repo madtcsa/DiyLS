@@ -67,18 +67,12 @@ public class MissView extends GLTextureView
 
     @Override
     public void queueEventOnGlThread(Runnable runnable) {
-        if (this == null) {
-            return;
-        }
         super.queueEvent(runnable);
     }
 
 
     @Override
     public void requestRender() {
-        if (this == null) {
-            return;
-        }
         super.requestRender();
     }
 }

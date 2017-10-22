@@ -34,15 +34,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <com.kkxx.diyls.utils.GestureLockView
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/date"
-        android:visibility="gone"
-        android:layout_marginTop="40dp"
-        android:id="@+id/gestureLockView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></com.kkxx.diyls.utils.GestureLockView>
-
     <com.kkxx.diyls.utils.SliderLayout
         android:id="@+id/sliderlayout"
         android:layout_marginBottom="40dp"
@@ -65,19 +56,4 @@
         </RelativeLayout>
 
     </com.kkxx.diyls.utils.SliderLayout>
-
-
-
-    <SurfaceView
-        android:id="@+id/camera_preview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <com.kkxx.diyls.utils.faceutil.FaceMask
-        android:id="@+id/mask"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></com.kkxx.diyls.utils.faceutil.FaceMask>
-
-
-
 </RelativeLayout>

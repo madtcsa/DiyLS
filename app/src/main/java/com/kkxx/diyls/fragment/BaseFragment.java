@@ -10,10 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kkxx.diyls.BaseActivity;
-import com.kkxx.diyls.HomeActivity;
 import com.kkxx.diyls.R;
 import com.kkxx.diyls.render.RendererFragment;
 import com.kkxx.diyls.render.util.UriUtil;
+import com.kkxx.diyls.HomePageActivity;
 
 /**
  * Created by Administrator on 2015/2/26.
@@ -23,7 +23,7 @@ public abstract class BaseFragment extends Fragment
     Context mContext;
     View mView;
     Typeface mContentFace;
-    HomeActivity mHomeActivity;
+    HomePageActivity mHomeActivity;
     RendererFragment mRendererFragment;
 
 
@@ -31,7 +31,7 @@ public abstract class BaseFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = this.getActivity();
         mView = inflater.inflate(getLayoutId(), null);
-        mHomeActivity = (HomeActivity) getActivity();
+        mHomeActivity = (HomePageActivity) getActivity();
         mContentFace = Typeface.createFromAsset(mContext.getAssets(),
                 "font/cartoon.ttf");
         BaseActivity.localSharedPreferences.registerOnSharedPreferenceChangeListener(
@@ -57,8 +57,7 @@ public abstract class BaseFragment extends Fragment
 
     @Override
     public void onDestroy() {
-        BaseActivity.localSharedPreferences.unregisterOnSharedPreferenceChangeListener(
-                this);
+        BaseActivity.localSharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
         super.onDestroy();
     }
 

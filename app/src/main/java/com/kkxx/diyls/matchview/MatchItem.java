@@ -48,9 +48,7 @@ public class MatchItem extends Animation {
 
     public void resetPosition(int horizontalRandomness) {
         Random random = new Random();
-        int randomNumber = -random.nextInt(horizontalRandomness) +
-                horizontalRandomness;
-        translationX = randomNumber;
+        translationX = -random.nextInt(horizontalRandomness) + horizontalRandomness;
     }
 
 

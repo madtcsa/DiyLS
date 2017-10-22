@@ -43,13 +43,13 @@ public class DemoRenderController extends RenderController {
     private final Handler mHandler = new MyHandler(this);
 
 
-    public DemoRenderController(Context context, BlurRenderer renderer, Callbacks callbacks, boolean allowFocus, String mPictureName) {
+    public DemoRenderController(Context context, BlurRenderer renderer, Callbacks callbacks,
+                                boolean allowFocus, String mPictureName) {
         super(context, renderer, callbacks);
         mAllowFocus = allowFocus;
         this.mPictureName = mPictureName;
         runAnimation();
     }
-
 
     private void runAnimation() {
         if (mCurrentScrollAnimator != null) {
@@ -58,9 +58,7 @@ public class DemoRenderController extends RenderController {
 
         mCurrentScrollAnimator = ObjectAnimator.ofFloat(mRenderer,
                 "normalOffsetX", mReverseDirection ? 1f : 0f,
-                mReverseDirection ? 0f : 1f)
-                                               .setDuration(
-                                                       ANIMATION_CYCLE_TIME_MILLIS);
+                mReverseDirection ? 0f : 1f).setDuration(ANIMATION_CYCLE_TIME_MILLIS);
         mCurrentScrollAnimator.start();
         mCurrentScrollAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -92,8 +90,7 @@ public class DemoRenderController extends RenderController {
             }
             if (msg.arg1 == 0) {
                 mActivity.get().mRenderer.setIsBlurred(false, false);
-            }
-            else {
+            } else {
                 mActivity.get().mRenderer.setIsBlurred(true, false);
             }
             mActivity.get().mHandler.sendEmptyMessageDelayed(1,

@@ -12,14 +12,11 @@ import android.content.Intent;
 public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context paramContext, Intent paramIntent) {
-        if (!paramIntent.getAction()
-                .equals("android.intent.action.BOOT_COMPLETED")) {
+        if (!paramIntent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
             return;
         }
-        if (BaseActivity.localSharedPreferences.getBoolean(
-                BaseActivity.PREFS_IS_OPEN, false)) {
-            Intent localIntent = new Intent(paramContext,
-                    LockScreenService.class);
+        if (BaseActivity.localSharedPreferences.getBoolean(BaseActivity.PREFS_IS_OPEN, true)) {
+            Intent localIntent = new Intent(paramContext, LockScreenService.class);
             paramContext.startService(localIntent);
         }
     }

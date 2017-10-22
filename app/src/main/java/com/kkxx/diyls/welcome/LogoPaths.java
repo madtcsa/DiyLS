@@ -17,7 +17,7 @@
 package com.kkxx.diyls.welcome;
 
 public interface LogoPaths {
-    public static final String[] GLYPHS = {
+    String[] GLYPHS = {
 
             "M160.334,280.068l0,-175l-40,0l-40,120l-40,-120l-40,0l0,175l30,0l0,-135l45,135l10,0l45,-135l0,135z",
             //M

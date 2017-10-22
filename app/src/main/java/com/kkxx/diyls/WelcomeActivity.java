@@ -34,7 +34,7 @@ public class WelcomeActivity extends BaseActivity {
             public void run() {
                 Intent mIntent = new Intent();
                 if (isInit) {
-                    mIntent.setClass(WelcomeActivity.this, HomeActivity.class);
+                    mIntent.setClass(WelcomeActivity.this, HomePageActivity.class);
                 } else {
                     mIntent.setClass(WelcomeActivity.this, InitSysActivity.class);
                 }

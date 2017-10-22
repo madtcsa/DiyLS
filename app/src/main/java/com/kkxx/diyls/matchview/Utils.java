@@ -21,8 +21,7 @@ public class Utils {
         }
         sInitialed = true;
         DisplayMetrics dm = new DisplayMetrics();
-        WindowManager wm = (WindowManager) context.getSystemService(
-                Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         wm.getDefaultDisplay().getMetrics(dm);
         SCREEN_WIDTH_PIXELS = dm.widthPixels;
         SCREEN_HEIGHT_PIXELS = dm.heightPixels;

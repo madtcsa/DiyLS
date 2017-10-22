@@ -35,7 +35,7 @@ public class DiyLSApplication extends Application {
         BaseActivity.localSharedPreferences = getSharedPreferences(PREFS, 0);
         initImage();
         if (BaseActivity.localSharedPreferences.getBoolean(
-                BaseActivity.PREFS_IS_OPEN, false)) {
+                BaseActivity.PREFS_IS_OPEN, true)) {
             startService(new Intent(this, LockScreenService.class));
         }
     }
@@ -86,11 +86,11 @@ public class DiyLSApplication extends Application {
 
     public static String getSDPath() {
         File sdDir = null;
-        boolean sdCardExist = Environment.getExternalStorageState()
-                .equals(android.os.Environment.MEDIA_MOUNTED);
+        boolean sdCardExist = Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
         if (sdCardExist) {
             sdDir = Environment.getExternalStorageDirectory();
         }
         return sdDir.toString();
     }
+
 }

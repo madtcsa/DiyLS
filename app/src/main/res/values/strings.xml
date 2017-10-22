@@ -17,15 +17,15 @@
     <string name="home_title">请设置解锁方式:</string>
     <string name="home_mode_slide">滑动解锁</string>
     <string name="home_mode_gesture">手势解锁</string>
-    <string name="home_blackground">请设置背景图片:</string>
-    <string name="home_chose_image">点击选择图片</string>
+    <string name="home_blackground">Set Locker Background Img:</string>
+    <string name="home_chose_image">Choose Picture</string>
     <string name="home_notice">未设置手势,自动跳转手势设置界面</string>
     <string name="home_face_notice">未保存人脸,自动跳转初始化界面</string>
     <string name="home_face_net_notice">请在联网状态下使用人脸识别功能.</string>
 
     <string name="detial_setting_detial">详细设置</string>
-    <string name="detial_setting_showmenu">锁屏显示状态栏</string>
-    <string name="detial_setting_shake">开启解锁时震动</string>
+    <string name="detial_setting_showmenu">Display status bar</string>
+    <string name="detial_setting_shake">Vibrate when unlocking</string>
     <string name="detial_setting_showline">隐藏手势连接线</string>
 
     <string name="gesture_setting_note">绘制解锁图案</string>
@@ -45,13 +45,19 @@
 
     <string name="update">正在检查更新,请查看弹窗信息,若无则为最新版本.</string>
 
-    <string name="about">关于</string>
+    <string name="about">About</string>
 
-    <string name="about_1">1.用到的开源项目众多,感谢所有开源项目作者。</string>
-    <string name="about_2">2.主要功能创意来自Muzei,感谢大神Roman Nurik。</string>
-    <string name="about_3">3.本App纯天然无广告,功能如有雷同,算我抄你。</string>
-    <string name="about_4">4.如果您有任何建议和意见,请到 www.rogerblog.cn 留言,不胜感激。</string>
+    <string name="about_1">1. Thanks to all open source project authors.</string>
+    <string name="about_2">2. Contact us: kkxx1062@gmail.com.</string>
+    <string name="about_3">3. Version: 0.0.1</string>
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="unlock_slide">Slide</string>
+    <string name="unlock_pattern">Pattern</string>
+
 </resources>

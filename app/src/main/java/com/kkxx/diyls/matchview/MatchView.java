@@ -22,7 +22,7 @@ import java.util.ArrayList;
  */
 public class MatchView extends View {
     //
-    public ArrayList<MatchItem> mItemList = new ArrayList<MatchItem>();
+    public ArrayList<MatchItem> mItemList = new ArrayList<>();
 
     private int mLineWidth;
     private float mScale = 1;
@@ -59,90 +59,78 @@ public class MatchView extends View {
     /**
      * 加载状态 1、划入 2、划出
      */
+    public static final int SLIDE_IN = 1;
+    public static final int SLIDE_OUT = 2;
     private int STATE = 0;
 
     private MatchInListener mMatchInListener;
     private MatchOutListener mMatchOutListener;
 
-
     public void setMatchInListener(MatchInListener mMatchInListener) {
         this.mMatchInListener = mMatchInListener;
     }
-
 
     public void setMatchOutListener(MatchOutListener mMatchOutListener) {
         this.mMatchOutListener = mMatchOutListener;
     }
 
-
     public MatchView(Context context) {
-
         super(context);
         initView();
     }
-
 
     public MatchView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView();
     }
 
-
     public MatchView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView();
     }
 
-
     private void initView() {
+
         this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         Utils.init(getContext());
         mLineWidth = Utils.dp2px(1);
         mDropHeight = Utils.dp2px(40);
         horizontalRandomness = Utils.SCREEN_WIDTH_PIXELS / 2;
-
         setPadding(0, Utils.dp2px(mPaddingTop), 0, Utils.dp2px(mPaddingTop));
-
         mHandler = new Handler() {
             @Override
             public void dispatchMessage(Message msg) {
                 super.dispatchMessage(msg);
-                if (STATE == 1) {//划入
+                if (STATE == SLIDE_IN) {
                     if (progress < 100) {
                         progress++;
                         setProgress((progress * 1f / (100)));
-                        mHandler.sendEmptyMessageDelayed(0,
-                                (long) (mInTime * 10));
-                    }
-                    else {
-                        STATE = 2;
+                        mHandler.sendEmptyMessageDelayed(0, (long) (mInTime * 10));
+                    } else {
+                        STATE = SLIDE_OUT;
                         if (mMatchInListener != null) {
                             mMatchInListener.onFinish();
                         }
                     }
-                }
-                else if (STATE == 2) {//划出
+                } else if (STATE == SLIDE_OUT) {
                     if (mIsInLoading) {
                         lightFinish();
                     }
                     if (progress > 0) {
                         progress--;
                         setProgress((progress * 1f / (100)));
-                        mHandler.sendEmptyMessageDelayed(0,
-                                (long) (mOutTime * 10));
-                    }
-                    else {
+                        mHandler.sendEmptyMessageDelayed(0, (long) (mOutTime * 10));
+                    } else {
                         progress = 0;
                         if (mMatchOutListener != null) {
                             mMatchOutListener.onFinish();
                         }
-                        STATE = 1;
+                        STATE = SLIDE_IN;
                     }
                 }
             }
         };
     }
-
 
     /**
      * 设置划入动画时长
@@ -192,7 +180,7 @@ public class MatchView extends View {
         if (mItemList.size() == 0) {
             return;
         }
-        STATE = 1;
+        STATE = SLIDE_IN;
         mHandler.sendEmptyMessage(0);
         if (mMatchInListener != null) {
             mMatchInListener.onBegin();
@@ -209,10 +197,9 @@ public class MatchView extends View {
 
 
     public void setProgress(float progress) {
-        if (mMatchInListener != null && STATE == 1) {
+        if (mMatchInListener != null && STATE == SLIDE_IN) {
             mMatchInListener.onProgressUpdate(progress);
-        }
-        else if (mMatchOutListener != null && STATE == 2) {
+        } else if (mMatchOutListener != null && STATE == SLIDE_OUT) {
             mMatchOutListener.onProgressUpdate(progress);
         }
 
@@ -220,8 +207,7 @@ public class MatchView extends View {
             if (isBeginLight) {
                 beginLight();
             }
-        }
-        else if (mIsInLoading) {
+        } else if (mIsInLoading) {
             lightFinish();
         }
         mProgress = progress;
@@ -385,8 +371,7 @@ public class MatchView extends View {
                 LoadingViewItem.getTransformation(getDrawingTime(),
                         mTransformation);
                 canvas.translate(offsetX, offsetY);
-            }
-            else {
+            } else {
 
                 if (progress == 0) {
                     LoadingViewItem.resetPosition(horizontalRandomness);
@@ -400,13 +385,11 @@ public class MatchView extends View {
                 if (progress == 1 || progress >= 1 - endPadding) {
                     canvas.translate(offsetX, offsetY);
                     LoadingViewItem.setAlpha(mBarDarkAlpha);
-                }
-                else {
+                } else {
                     float realProgress;
                     if (progress <= startPadding) {
                         realProgress = 0;
-                    }
-                    else {
+                    } else {
                         realProgress = Math.min(1, (progress - startPadding) /
                                 internalAnimationFactor);
                     }
@@ -439,37 +422,31 @@ public class MatchView extends View {
         private int mInterval = 0;
         private boolean mRunning = true;
 
-
         private void start() {
             mRunning = true;
             mTick = 0;
-
             mInterval = mLoadingAniDuration / mItemList.size();
-            mCountPerSeg = mLoadingAniSegDuration / mInterval;
-            mSegCount = mItemList.size() / mCountPerSeg + 1;
-            run();
-        }
+                mCountPerSeg = mLoadingAniSegDuration / mInterval;
+                mSegCount = mItemList.size() / mCountPerSeg + 1;
+                run();
+            }
 
+            @Override
+            public void run() {
 
-        @Override
-        public void run() {
-
-            int pos = mTick % mCountPerSeg;
-            for (int i = 0; i < mSegCount; i++) {
-
-                int index = i * mCountPerSeg + pos;
-                if (index > mTick) {
-                    continue;
-                }
-
-                index = index % mItemList.size();
-                MatchItem item = mItemList.get(index);
-
-                item.setFillAfter(false);
-                item.setFillEnabled(true);
-                item.setFillBefore(false);
-                item.setDuration(mLoadingAniItemDuration);
-                item.start(mFromAlpha, mToAlpha);
+                int pos = mTick % mCountPerSeg;
+                for (int i = 0; i < mSegCount; i++) {
+                    int index = i * mCountPerSeg + pos;
+                    if (index > mTick) {
+                        continue;
+                    }
+                    index = index % mItemList.size();
+                    MatchItem item = mItemList.get(index);
+                    item.setFillAfter(false);
+                    item.setFillEnabled(true);
+                    item.setFillBefore(false);
+                    item.setDuration(mLoadingAniItemDuration);
+                    item.start(mFromAlpha, mToAlpha);
             }
 
             mTick++;

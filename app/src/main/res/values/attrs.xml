@@ -102,11 +102,6 @@
         <attr name="alphaFactor" format="float" />
         <attr name="hover" format="boolean" />
     </declare-styleable>
-
-    <declare-styleable name="PullSeparateListView">
-        <attr name="separate_all" format="boolean"/>
-        <attr name="showDownAnim" format="boolean"/>
-    </declare-styleable>
     <declare-styleable name="SwitchButton">
         <attr name="onDrawable" format="reference" />
         <attr name="offDrawable" format="reference" />

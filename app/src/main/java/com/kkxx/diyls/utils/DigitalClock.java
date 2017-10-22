@@ -17,8 +17,8 @@ import java.util.Calendar;
 public class DigitalClock extends android.widget.DigitalClock {
 
     Calendar mCalendar;
-    private final static String m12 = "h:mm aa";//h:mm:ss aa
-    private final static String m24 = "k:mm";//k:mm:ss
+    private final static String M12 = "h:mm aa";//h:mm:ss aa
+    private final static String M24 = "k:mm";//k:mm:ss
     private FormatChangeObserver mFormatChangeObserver;
 
     private Runnable mTicker;
@@ -99,10 +99,10 @@ public class DigitalClock extends android.widget.DigitalClock {
 
     private void setFormat() {
         if (get24HourMode()) {
-            mFormat = m24;
+            mFormat = M24;
         }
         else {
-            mFormat = m12;
+            mFormat = M12;
         }
     }
 

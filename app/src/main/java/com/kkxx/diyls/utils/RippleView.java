@@ -16,7 +16,8 @@ package com.kkxx.diyls.utils;
  * limitations under the License.
  */
 
-import android.annotation.SuppressLint;
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -29,15 +30,10 @@ import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.Button;
 
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.view.ViewHelper;
 import com.kkxx.diyls.R;
 
-@SuppressLint("ClickableViewAccessibility") public class RippleView
-        extends Button {
+public class RippleView extends android.support.v7.widget.AppCompatButton {
 
     private float mDownX;
     private float mDownY;
@@ -73,12 +69,9 @@ import com.kkxx.diyls.R;
     public RippleView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
-        TypedArray a = context.obtainStyledAttributes(attrs,
-                R.styleable.RippleView);
-        mRippleColor = a.getColor(R.styleable.RippleView_rippleColor,
-                mRippleColor);
-        mAlphaFactor = a.getFloat(R.styleable.RippleView_alphaFactor,
-                mAlphaFactor);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RippleView);
+        mRippleColor = a.getColor(R.styleable.RippleView_rippleColor, mRippleColor);
+        mAlphaFactor = a.getFloat(R.styleable.RippleView_alphaFactor, mAlphaFactor);
         mHover = a.getBoolean(R.styleable.RippleView_hover, mHover);
         a.recycle();
     }
@@ -86,7 +79,6 @@ import com.kkxx.diyls.R;
 
     public void init() {
         mDensity = getContext().getResources().getDisplayMetrics().density;
-
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setAlpha(100);
         setRippleColor(Color.BLACK, 0.2f);
@@ -118,77 +110,60 @@ import com.kkxx.diyls.R;
     @Override
     public boolean onTouchEvent(final MotionEvent event) {
         boolean superResult = super.onTouchEvent(event);
-        if (event.getActionMasked() == MotionEvent.ACTION_DOWN &&
-                this.isEnabled() && mHover) {
+        if (event.getActionMasked() == MotionEvent.ACTION_DOWN && this.isEnabled() && mHover) {
             mRect = new Rect(getLeft(), getTop(), getRight(), getBottom());
             mAnimationIsCancel = false;
             mDownX = event.getX();
             mDownY = event.getY();
-
-            mRadiusAnimator = ObjectAnimator.ofFloat(this, "radius", 0, dp(20))
-                                            .setDuration(400);
-            mRadiusAnimator.setInterpolator(
-                    new AccelerateDecelerateInterpolator());
+            mRadiusAnimator = ObjectAnimator.ofFloat(this, "radius", 0, dp(20)).setDuration(400);
+            mRadiusAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
             mRadiusAnimator.start();
             if (!superResult) {
                 return true;
             }
-        }
-        else if (event.getActionMasked() == MotionEvent.ACTION_MOVE &&
-                this.isEnabled() && mHover) {
+        } else if (event.getActionMasked() == MotionEvent.ACTION_MOVE && this.isEnabled() &&
+                mHover) {
             mDownX = event.getX();
             mDownY = event.getY();
-
             // Cancel the ripple animation when moved outside
-            if (mAnimationIsCancel = !mRect.contains(
-                    getLeft() + (int) event.getX(),
-                    getTop() + (int) event.getY())) {
+            if (mAnimationIsCancel = !mRect.contains(getLeft() + (int) event.getX(), getTop() +
+                    (int) event.getY())) {
                 setRadius(0);
-            }
-            else {
+            } else {
                 setRadius(dp(20));
             }
             if (!superResult) {
                 return true;
             }
-        }
-        else if (event.getActionMasked() == MotionEvent.ACTION_UP &&
+        } else if (event.getActionMasked() == MotionEvent.ACTION_UP &&
                 !mAnimationIsCancel && this.isEnabled()) {
             mDownX = event.getX();
             mDownY = event.getY();
-
-            final float tempRadius = (float) Math.sqrt(
-                    mDownX * mDownX + mDownY * mDownY);
+            final float tempRadius = (float) Math.sqrt(mDownX * mDownX + mDownY * mDownY);
             float targetRadius = Math.max(tempRadius, mMaxRadius);
-
             if (mIsAnimating) {
                 mRadiusAnimator.cancel();
             }
-            mRadiusAnimator = ObjectAnimator.ofFloat(this, "radius", dp(20),
-                    targetRadius);
+            mRadiusAnimator = ObjectAnimator.ofFloat(this, "radius", dp(20), targetRadius);
             mRadiusAnimator.setDuration(300);
-            mRadiusAnimator.setInterpolator(
-                    new AccelerateDecelerateInterpolator());
+            mRadiusAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
             mRadiusAnimator.addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animator) {
                     mIsAnimating = true;
                 }
 
-
                 @Override
                 public void onAnimationEnd(Animator animator) {
                     setRadius(0);
-                    ViewHelper.setAlpha(RippleView.this, 1);
+                    setAlpha(1);
                     mIsAnimating = false;
                 }
-
 
                 @Override
                 public void onAnimationCancel(Animator animator) {
 
                 }
-
 
                 @Override
                 public void onAnimationRepeat(Animator animator) {
@@ -224,9 +199,7 @@ import com.kkxx.diyls.R;
         invalidate();
     }
 
-
     private Path mPath = new Path();
-
 
     @Override
     protected void onDraw(final Canvas canvas) {
@@ -235,15 +208,11 @@ import com.kkxx.diyls.R;
         if (isInEditMode()) {
             return;
         }
-
         canvas.save(Canvas.CLIP_SAVE_FLAG);
-
         mPath.reset();
         mPath.addCircle(mDownX, mDownY, mRadius, Path.Direction.CW);
-
         canvas.clipPath(mPath);
         canvas.restore();
-
         canvas.drawCircle(mDownX, mDownY, mRadius, mPaint);
     }
 }

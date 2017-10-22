@@ -44,7 +44,7 @@ public class InitSysActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.btn_initdone:
                 i = new Intent();
-                i.setClass(InitSysActivity.this, HomeActivity.class);
+                i.setClass(InitSysActivity.this, HomePageActivity.class);
                 startActivity(i);
                 InitSysActivity.this.finish();
                 break;
